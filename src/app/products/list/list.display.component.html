@@ -1,0 +1,6 @@
+<ng-container *ngIf="products.length === 0">
+    <p>No Products</p>
+</ng-container>
+<ng-container *ngIf="products.length > 0">
+    <p *ngFor="let product of products">{{product.name}}</p>
+</ng-container>

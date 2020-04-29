@@ -1,3 +1,2 @@
-<ng-container *ngIf="$products | async">
-    <p *ngFor="let product of ($products | async)">{{product.name}}</p>
-</ng-container> 
+<list-display *ngIf="!loading" [products]="$products | async"></list-display>
+<ng-container *ngIf="loading">Loading...</ng-container>

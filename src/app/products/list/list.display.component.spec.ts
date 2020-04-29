@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListDisplayComponent } from './list-display.component';
+import { ListDisplayComponent } from './list.display.component';
 
 describe('ListDisplayComponent', () => {
   let component: ListDisplayComponent;
