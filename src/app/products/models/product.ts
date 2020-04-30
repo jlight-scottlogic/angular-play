@@ -1,4 +1,7 @@
 export type Product = {
   id: string,
-  name: string
+  name: string,
+  description: string,
+  dateAdded: string,
+  isActive: boolean
 }

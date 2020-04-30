@@ -17,7 +17,10 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
     this.$products = this.client.get<Product>('products');
-    this.$products.subscribe(_ => this.loading = false)
+    this.$products.subscribe(x => {
+      console.log(x)
+      this.loading = false;
+    })
   }
 
 }
