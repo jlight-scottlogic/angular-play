@@ -16,7 +16,9 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
+
     this.$products = this.service.getProducts();
+    
     this.$products.subscribe(x => {
       this.loading = false;
     })
