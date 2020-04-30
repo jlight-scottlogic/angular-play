@@ -8,13 +8,17 @@ import { ProductsComponent } from './products.component';
 import { ListComponent } from './list/list.component';
 import { ListDisplayComponent } from './list/list.display.component';
 import { ProductService } from './services/product.service';
+import { DetailsComponent } from './details/details.component';
+import { DetailsDisplayComponent } from './details/details.display.component';
 
 
 @NgModule({
   declarations: [
     ProductsComponent,
     ListComponent,
-    ListDisplayComponent
+    ListDisplayComponent,
+    DetailsComponent,
+    DetailsDisplayComponent
   ],
   imports: [
     CommonModule,
