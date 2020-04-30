@@ -2,5 +2,8 @@
     <p>No Products</p>
 </ng-container>
 <ng-container *ngIf="products?.length > 0">
-    <p *ngFor="let product of products">{{product.name}}</p>
+    <ag-grid-angular style="width: 750px; height: 500px;" class="ag-theme-alpine" 
+        [rowData]="products"
+        [columnDefs]="columnDefs">
+    </ag-grid-angular>
 </ng-container>

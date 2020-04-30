@@ -8,4 +8,14 @@ import { Product } from '../models';
 })
 export class ListDisplayComponent {
   @Input() public products: Product[] = [];
+
+  public columnDefs = [
+    { headerName: 'Name', field: 'name' },
+    { headerName: 'Description', field: 'description' },
+    {
+      headerName: 'Date Added', 
+      field: 'dateAdded',
+      cellRenderer: ({ value }) => value.format('YYYY-MM-DD')
+    }
+  ];
 }

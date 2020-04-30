@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthClient } from 'src/app/client/auth-client.service';
 import { Observable } from 'rxjs';
 import { Product } from '../models';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-list',
@@ -9,18 +9,16 @@ import { Product } from '../models';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  public $products: Observable<Product>;
+  public $products: Observable<Product[]>;
   public loading = false;
 
-  constructor(private client: AuthClient) { }
+  constructor(private service: ProductService) { }
 
   ngOnInit(): void {
     this.loading = true;
-    this.$products = this.client.get<Product>('products');
+    this.$products = this.service.getProducts();
     this.$products.subscribe(x => {
-      console.log(x)
       this.loading = false;
     })
   }
-
 }
