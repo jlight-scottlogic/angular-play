@@ -1,2 +1,2 @@
 <list-display *ngIf="!loading" [products]="$products | async"></list-display>
-<ng-container *ngIf="loading">Loading...</ng-container>
+<div *ngIf="loading" class="loading">Loading...</div>

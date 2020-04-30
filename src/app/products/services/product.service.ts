@@ -20,9 +20,9 @@ export class ProductService {
     }
 
     return this.client.get<ProductDTO[]>('products').pipe(
-      map(products => 
+      map(products =>
         products.map(p => ({ ...p, dateAdded: moment(p.dateAdded) })
-      )
-    ))
+        )
+      ))
   }
 }
