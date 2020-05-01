@@ -16,7 +16,8 @@ import { RouterModule } from '@angular/router';
     MatButtonModule
   ],
   exports: [
-    NavbarComponent
+    NavbarComponent,
+    MatButtonModule
   ]
 })
 export class UiModule { }

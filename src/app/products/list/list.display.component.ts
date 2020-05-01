@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '../models';
+import { ButtonComponent } from './button/button.component';
 
 @Component({
   selector: 'list-display',
@@ -27,7 +28,10 @@ export class ListDisplayComponent {
       field: 'dateAdded',
       sortable: true,
       filter: true,
-      cellRenderer: ({ value }) => value.format('YYYY-MM-DD')
+      valueFormatter: ({ value }) => value.format('YYYY-MM-DD')
+    },
+    {
+      cellRendererFramework: ButtonComponent
     }
   ];
 }

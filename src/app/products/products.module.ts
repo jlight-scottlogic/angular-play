@@ -10,6 +10,8 @@ import { ListDisplayComponent } from './list/list.display.component';
 import { ProductService } from './services/product.service';
 import { DetailsComponent } from './details/details.component';
 import { DetailsDisplayComponent } from './details/details.display.component';
+import { UiModule } from '../ui/ui.module';
+import { ButtonComponent } from './list/button/button.component';
 
 
 @NgModule({
@@ -18,12 +20,16 @@ import { DetailsDisplayComponent } from './details/details.display.component';
     ListComponent,
     ListDisplayComponent,
     DetailsComponent,
-    DetailsDisplayComponent
+    DetailsDisplayComponent,
+    ButtonComponent
   ],
   imports: [
     CommonModule,
     ProductsRoutingModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([
+      ButtonComponent
+    ]),
+    UiModule
   ],
   providers: [
     ProductService
