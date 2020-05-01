@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
@@ -13,11 +15,15 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     CommonModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatGridListModule
   ],
   exports: [
     NavbarComponent,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatGridListModule
   ]
 })
 export class UiModule { }

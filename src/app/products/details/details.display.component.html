@@ -1,1 +1,13 @@
-<p>details display works!</p>
+<mat-card color="accent">
+    <mat-card-title>
+        Product Details
+    </mat-card-title>
+    <mat-card-content>
+        <mat-grid-list [cols]="6" [rowHeight]="20">
+            <ng-container *ngFor="let property of details">
+                <mat-grid-tile [rowspan]="1" [colspan]="1"><label>{{property.display}}:</label></mat-grid-tile>
+                <mat-grid-tile [rowspan]="1" [colspan]="5">{{property.value}}</mat-grid-tile>
+            </ng-container>
+        </mat-grid-list>
+    </mat-card-content>
+</mat-card>

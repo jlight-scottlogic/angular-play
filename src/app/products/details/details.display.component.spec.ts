@@ -3,14 +3,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DetailsDisplayComponent } from './details.display.component';
 
 describe('Details.DisplayComponent', () => {
-  let component:DetailsDisplayComponent;
+  let component: DetailsDisplayComponent;
   let fixture: ComponentFixture<DetailsDisplayComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailsDisplayComponent ]
+      declarations: [DetailsDisplayComponent],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
