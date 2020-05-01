@@ -2,8 +2,13 @@
     <p class="empty-message">No Products</p>
 </ng-container>
 <ng-container *ngIf="products?.length > 0">
-    <ag-grid-angular style="width: 750px; height: 500px;" class="ag-theme-alpine" 
+    <ag-grid-angular 
+        #agGrid
+        style="width: 750px; height: 500px;"
+        class="ag-theme-alpine" 
         [rowData]="products"
-        [columnDefs]="columnDefs">
+        [columnDefs]="columnDefs"
+        (gridReady)="onGridReady()"    
+    >
     </ag-grid-angular>
 </ng-container>
