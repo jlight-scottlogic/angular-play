@@ -14,6 +14,8 @@ import { UiModule } from '../ui/ui.module';
 import { ButtonComponent } from './list/button/button.component';
 import { StoreModule } from '@ngrx/store';
 import { key, reducer } from './ngrx/products-reducer';
+import { EffectsModule } from '@ngrx/effects';
+import productsEffects from './ngrx/products-effects';
 
 
 @NgModule({
@@ -29,6 +31,7 @@ import { key, reducer } from './ngrx/products-reducer';
     CommonModule,
     ProductsRoutingModule,
     StoreModule.forFeature(key, reducer),
+    EffectsModule.forFeature(productsEffects),
     AgGridModule.withComponents([
       ButtonComponent
     ]),

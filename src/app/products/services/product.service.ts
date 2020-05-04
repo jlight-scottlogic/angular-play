@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthClient } from 'src/app/client/auth-client.service';
 import { Product } from '../models';
 import * as moment from 'moment';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 type ProductDTO = {
@@ -12,6 +12,8 @@ type ProductDTO = {
   dateAdded: string,
   isActive: boolean
 }
+
+type Error = {};
 
 @Injectable()
 export class ProductService {
