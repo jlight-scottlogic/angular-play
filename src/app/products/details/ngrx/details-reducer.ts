@@ -1,13 +1,14 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 import { loadProductDetails, loadProductDetailsComplete, loadProductDetailsError } from './details-actions';
+import { ProductDetailsState } from './details-state';
 
-const initialState = {
+const initialState: ProductDetailsState = {
     loading: false,
     error: false,
     product: null
 }
 
-export default createReducer(initialState,
+const reducer = createReducer(initialState,
     on(loadProductDetails, state => ({
         ...state,
         loading: true,
@@ -26,3 +27,7 @@ export default createReducer(initialState,
         error: true
     }))
 );
+
+export default function (state: ProductDetailsState | undefined, action: Action) {
+  return reducer(state, action);
+}

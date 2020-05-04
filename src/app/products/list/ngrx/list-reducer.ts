@@ -1,19 +1,20 @@
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 import { loadProductList, loadProductListComplete, loadProductListError } from './list-actions';
+import { ProductListState } from './list-state';
 
-const initialState = {
+const initialState: ProductListState = {
     loading: false,
     error: false,
     products: []
 }
 
-export default createReducer(initialState,
+const reducer = createReducer(initialState,
     on(loadProductList, state => ({
         ...state,
         loading: true,
         error: false
     })),
-    
+
     on(loadProductListComplete, (state, action) => ({
         ...state,
         loading: true,
@@ -26,3 +27,7 @@ export default createReducer(initialState,
         error: true
     }))
 );
+
+export default function (state: ProductListState | undefined, action: Action) {
+  return reducer(state, action);
+}
