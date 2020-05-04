@@ -4,11 +4,13 @@ import listReducer from '../list/ngrx/list-reducer';
 import detailsReducer from '../details/ngrx/details-reducer';
 import { ProductState } from './products-state';
 
-const reducer = combineReducers({
+export const key = 'products';
+
+export const reducerFn = combineReducers({
     list: listReducer,
     details: detailsReducer
 });
 
-export default function (state: ProductState | undefined, action: Action) {
-    return reducer(state, action);
+export function reducer(state: ProductState | undefined, action: Action) {
+    return reducerFn(state, action);
 }

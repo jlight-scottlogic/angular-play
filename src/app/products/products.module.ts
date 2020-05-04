@@ -13,7 +13,7 @@ import { DetailsDisplayComponent } from './details/details.display.component';
 import { UiModule } from '../ui/ui.module';
 import { ButtonComponent } from './list/button/button.component';
 import { StoreModule } from '@ngrx/store';
-import productsReducer from './ngrx/products-reducer';
+import { key, reducer } from './ngrx/products-reducer';
 
 
 @NgModule({
@@ -28,7 +28,7 @@ import productsReducer from './ngrx/products-reducer';
   imports: [
     CommonModule,
     ProductsRoutingModule,
-    StoreModule.forFeature('products', productsReducer),
+    StoreModule.forFeature(key, reducer),
     AgGridModule.withComponents([
       ButtonComponent
     ]),
