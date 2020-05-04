@@ -1,43 +1,36 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ProductService } from '../services/product.service';
-import { Product } from '../models';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/ngrx/app-state';
+import { selectDetailsProduct, selectDetailsLoading } from './ngrx/details-selectors';
+import { loadProductDetails } from './ngrx/details-actions';
 
 @Component({
   selector: 'product-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit, OnDestroy {
-  public $product: Observable<Product>;
-  public loading = false;
-  private subscriptions: Subscription[] = [];
-
+export class DetailsComponent implements OnDestroy {
+  public $product = this.store.select(selectDetailsProduct);
+  public $loading = this.store.select(selectDetailsLoading);
+  
+  private subscription: Subscription;
+  
   constructor(
     route: ActivatedRoute,
-    private service: ProductService
+    private store: Store<AppState>
   ) {
-    this.subscriptions.push(
+    this.subscription =
       route.params
         .pipe(map(p => p.id))
         .subscribe(id => {
-          this.loading = true;
-          this.$product = this.service.getProduct(id);
-        })
-    );
+          this.store.dispatch(loadProductDetails({ id }))
+        });
   }
 
-  ngOnInit(): void {
-    this.subscriptions.push(
-      this.$product.subscribe(x => {
-        this.loading = false;
-      })
-    )
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(s => s.unsubscribe());
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

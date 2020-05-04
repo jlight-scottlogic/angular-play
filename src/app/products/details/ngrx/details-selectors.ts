@@ -16,7 +16,7 @@ export const selectDetailsHasError = createSelector(
     state => state.error
 )
 
-export const selectDetailsProducts = createSelector(
+export const selectDetailsProduct = createSelector(
     selectDetailsState,
     state => state.product
 )

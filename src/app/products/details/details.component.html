@@ -1,7 +1,7 @@
 
-<div *ngIf="loading" class="loading">Loading...</div>
+<div *ngIf="$loading | async" class="loading">Loading...</div>
 
-<ng-container *ngIf="!loading" >
+<ng-container *ngIf="!($loading | async)" >
     <details-display [product]="$product | async"></details-display>
     <a mat-flat-button color="accent" [routerLink]="'/products'" class="mt-1">Back</a>
 </ng-container>

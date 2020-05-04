@@ -17,7 +17,7 @@ const reducer = createReducer(initialState,
 
     on(loadProductListComplete, (state, action) => ({
         ...state,
-        loading: true,
+        loading: false,
         products: action.products
     })),
 
