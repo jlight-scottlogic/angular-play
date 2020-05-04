@@ -11,7 +11,6 @@ import { AuthClient } from './client/auth-client.service';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import reducer from './ngrx/root-reducer';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,7 @@ import reducer from './ngrx/root-reducer';
     NoopAnimationsModule,
     AppRoutingModule,
     UiModule,
-    StoreModule.forRoot(reducer),
+    StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [AuthClient],

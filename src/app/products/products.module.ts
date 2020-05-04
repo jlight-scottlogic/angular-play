@@ -12,6 +12,8 @@ import { DetailsComponent } from './details/details.component';
 import { DetailsDisplayComponent } from './details/details.display.component';
 import { UiModule } from '../ui/ui.module';
 import { ButtonComponent } from './list/button/button.component';
+import { StoreModule } from '@ngrx/store';
+import productsReducer from './ngrx/products-reducer';
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import { ButtonComponent } from './list/button/button.component';
   imports: [
     CommonModule,
     ProductsRoutingModule,
+    StoreModule.forFeature('products', productsReducer),
     AgGridModule.withComponents([
       ButtonComponent
     ]),
