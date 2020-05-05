@@ -18,6 +18,7 @@ import { EffectsModule } from '@ngrx/effects';
 import productsEffects from './ngrx/products-effects';
 import { CreateComponent } from './create/create.component';
 import { CreateDisplayComponent } from './create/create.display.component';
+import { FormsModule } from '../forms/forms.module';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { CreateDisplayComponent } from './create/create.display.component';
     AgGridModule.withComponents([
       ButtonComponent
     ]),
-    UiModule
+    UiModule,
+    FormsModule,
   ],
   providers: [
     ProductService

@@ -1,2 +1,5 @@
+<button mat-flat-button color="primary" [routerLink]="'/products/create'" class="mb-1">Add new product</button>
+
 <list-display *ngIf="!($loading | async)" [products]="$products | async"></list-display>
+
 <div *ngIf="$loading | async" class="loading">Loading...</div>
