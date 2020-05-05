@@ -16,6 +16,8 @@ import { StoreModule } from '@ngrx/store';
 import { key, reducer } from './ngrx/products-reducer';
 import { EffectsModule } from '@ngrx/effects';
 import productsEffects from './ngrx/products-effects';
+import { CreateComponent } from './create/create.component';
+import { CreateDisplayComponent } from './create/create.display.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import productsEffects from './ngrx/products-effects';
     ListDisplayComponent,
     DetailsComponent,
     DetailsDisplayComponent,
-    ButtonComponent
+    ButtonComponent,
+    CreateComponent,
+    CreateDisplayComponent
   ],
   imports: [
     CommonModule,
