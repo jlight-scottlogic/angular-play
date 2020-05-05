@@ -1,65 +1,65 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
-
-import { of, asapScheduler } from 'rxjs';
-import * as moment from 'moment';
-import { Product } from '../models';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule, Store, Action } from '@ngrx/store';
 
 import { ListComponent } from './list.component';
-import { ProductService } from '../services/product.service';
-
-const createTestProduct = (id: number) => ({
-  id: id.toString(),
-  name: `Product ${id}`,
-  description: 'Description',
-  isActive: true,
-  dateAdded: moment('2020-01-01T00:00:00')
-} as Product)
+import { key, reducer } from '../ngrx/products-reducer';
+import { loadProductListComplete, loadProductListError } from './ngrx/list-actions';
 
 describe('ListComponent', () => {
   let component: ListComponent;
   let fixture: ComponentFixture<ListComponent>;
-  let serviceSpy: jasmine.SpyObj<ProductService>;
   let element: HTMLElement;
+  let store: Store;
 
   beforeEach(async(() => {
-    const spy = jasmine.createSpyObj('ProductService', ['getProducts']);
-
     TestBed
       .configureTestingModule({
         declarations: [ListComponent],
-        providers: [
-          { provide: ProductService, useValue: spy }
+        imports: [
+          StoreModule.forRoot({ [key]: reducer })
         ]
       })
       .compileComponents();
 
-    serviceSpy = TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
+    store = TestBed.inject(Store);
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ListComponent);
     element = fixture.nativeElement;
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    serviceSpy.getProducts.and.returnValue(of([createTestProduct(1)]))
-    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
-  it('should show loading until getProducts returns', fakeAsync(() => {
-    serviceSpy.getProducts.and.returnValue(of([createTestProduct(1)], asapScheduler))
-    
+  it('should show loading until load products completes', () => {
+    expectElementLoading();
+    dispatchAction(loadProductListComplete({ products: [] }));
+    expectElementNotLoading();
+  });
+
+  it('should show loading until load products errors', () => {
+    expectElementLoading();
+    dispatchAction(loadProductListError({ error: 'TEST' }));
+    expectElementNotLoading();
+  });
+  
+  function dispatchAction(action: Action) {
+    store.dispatch(action);
     fixture.detectChanges();
-
-    expect(element.querySelector('list-display')).toBeNull();
-    expect(element.querySelector('.loading')).not.toBeNull();
-
-    tick();
-    fixture.detectChanges();
-
+  }
+  
+  function expectElementNotLoading() {
     expect(element.querySelector('list-display')).not.toBeNull();
     expect(element.querySelector('.loading')).toBeNull();
-  }));
+  }
+  
+  function expectElementLoading() {
+    expect(element.querySelector('list-display')).toBeNull();
+    expect(element.querySelector('.loading')).not.toBeNull();
+  }
 });
+

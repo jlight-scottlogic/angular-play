@@ -5,7 +5,10 @@ import { ProductService } from '../services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { of, asapScheduler } from 'rxjs';
 import * as moment from 'moment';
+import { key, reducer } from '../ngrx/products-reducer';
 import { Product } from '../models';
+import { StoreModule, Store, Action } from '@ngrx/store';
+import { loadProductDetailsComplete, loadProductDetailsError } from './ngrx/details-actions';
 
 const createTestProduct = (id: number) => ({
   id: id.toString(),
@@ -19,49 +22,59 @@ describe('DetailsComponent', () => {
   let component: DetailsComponent;
   let fixture: ComponentFixture<DetailsComponent>;
   let element: HTMLElement;
-  let serviceSpy: jasmine.SpyObj<ProductService>;
+  let store: Store;
 
   beforeEach(async(() => {
-    const spy = jasmine.createSpyObj('ProductService', ['getProduct']);
-
     TestBed
       .configureTestingModule({
         declarations: [DetailsComponent],
+        imports: [
+          StoreModule.forRoot({ [key]: reducer })
+        ],
         providers: [
           { provide: ActivatedRoute, useValue: { params: of({ id: '1' })} },
-          { provide: ProductService, useValue: spy }
         ]
       })
       .compileComponents();
 
-    serviceSpy = TestBed.inject(ProductService) as jasmine.SpyObj<ProductService>;
+    store = TestBed.inject(Store);
   }));
 
-  const instantiateComponent = () => {
+  beforeEach(() => {
     fixture = TestBed.createComponent(DetailsComponent);
-    component = fixture.componentInstance;
     element = fixture.nativeElement;
+    component = fixture.componentInstance;
     fixture.detectChanges();
-  }
+  });
 
   it('should create', () => {
-    serviceSpy.getProduct.and.returnValue(of(createTestProduct(1)))
-    instantiateComponent();
     expect(component).toBeTruthy();
   });
 
-  it('should show loading until getProduct returns', fakeAsync(() => {
-    serviceSpy.getProduct.and.returnValue(of(createTestProduct(1), asapScheduler))
-    
-    instantiateComponent();
+  it('should show loading until load product completes', () => {
+    expectElementLoading();
+    dispatchAction(loadProductDetailsComplete({ product: createTestProduct(1) }));
+    expectElementNotLoading();
+  });
 
-    expect(element.querySelector('details-display')).toBeNull();
-    expect(element.querySelector('.loading')).not.toBeNull();
-
-    tick();
+  it('should show loading until load product errors', () => {
+    expectElementLoading();
+    dispatchAction(loadProductDetailsError({ error: 'TEST' }));
+    expectElementNotLoading();
+  });
+  
+  function dispatchAction(action: Action) {
+    store.dispatch(action);
     fixture.detectChanges();
-
+  }
+  
+  function expectElementNotLoading() {
     expect(element.querySelector('details-display')).not.toBeNull();
     expect(element.querySelector('.loading')).toBeNull();
-  }));
+  }
+  
+  function expectElementLoading() {
+    expect(element.querySelector('details-display')).toBeNull();
+    expect(element.querySelector('.loading')).not.toBeNull();
+  }
 });
