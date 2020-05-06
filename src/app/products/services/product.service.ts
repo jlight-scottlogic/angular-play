@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthClient } from 'src/app/client/auth-client.service';
-import { Product } from '../models';
+import { Product, ProductCreateModel } from '../models';
 import * as moment from 'moment';
-import { map, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 type ProductDTO = {
@@ -13,7 +13,11 @@ type ProductDTO = {
   isActive: boolean
 }
 
-type Error = {};
+type ProductCreateDTO = {
+  name: string,
+  description: string,
+  dateAdded: string,
+}
 
 @Injectable()
 export class ProductService {
@@ -32,5 +36,12 @@ export class ProductService {
     return this.client.get<ProductDTO>(`products/${id}`).pipe(
       map(p => ({ ...p, dateAdded: moment(p.dateAdded) }))
     )
+  }
+
+  createProduct(product: ProductCreateModel): Observable<string> {
+    return this.client.post<ProductCreateDTO, string>(`products`, {
+      ...product,
+      dateAdded: product.dateAdded.format()
+    });
   }
 }

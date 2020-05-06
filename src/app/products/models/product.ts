@@ -7,3 +7,9 @@ export type Product = {
   dateAdded: moment.Moment,
   isActive: boolean
 }
+
+export type ProductCreateModel = {
+  name: string,
+  description: string,
+  dateAdded: moment.Moment,
+}

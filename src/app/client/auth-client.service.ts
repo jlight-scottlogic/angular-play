@@ -20,6 +20,17 @@ export class AuthClient {
     )
   }
 
+  post<TIn, TOut>(path: string, data: TIn) {
+    const headers = {
+      'Authorization': 'Basic YWRtaW46UGFzc3dvcmQx'
+    }
+
+    return this.client.post<TOut>(`${config.wepApiUrl}/${path}`, data, { headers }).pipe(
+      map(x => x as TOut),
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
