@@ -13,12 +13,6 @@ type ProductDTO = {
   isActive: boolean
 }
 
-type ProductCreateDTO = {
-  name: string,
-  description: string,
-  dateAdded: string,
-}
-
 @Injectable()
 export class ProductService {
 
@@ -39,7 +33,7 @@ export class ProductService {
   }
 
   createProduct(product: ProductCreateModel): Observable<string> {
-    return this.client.post<ProductCreateDTO, string>(`products`, {
+    return this.client.post(`products`, {
       ...product,
       dateAdded: product.dateAdded.format()
     });
