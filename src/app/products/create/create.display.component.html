@@ -1,1 +1,27 @@
-<p>create display works!</p>
+<mat-card>
+    <mat-card-title>
+        Create Product
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="form">
+            <mat-form-field class="w-100">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name"/>
+            </mat-form-field>
+            <mat-form-field class="w-100">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Date added</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="dateAdded">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </form> 
+    </mat-card-content>
+    <mat-card-footer>
+        <button mat-flat-button color="accent" [routerLink]="'/products'" class="m-1">Back</button>
+        <button mat-flat-button type="submit" color="primary" (click)="onSubmitClick($event)">Create</button>
+    </mat-card-footer>
+</mat-card>
